@@ -1,0 +1,11 @@
+node_modules/*
+
+.vscode/*
+
+package-lock.json
+
+dest/*
+
+dist/*
+
+build/*

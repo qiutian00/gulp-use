@@ -1,0 +1,27 @@
+{
+  "name": "gulp-use",
+  "version": "1.0.0",
+  "description": "how to basic config gulp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "gulp",
+    "use",
+    "basic"
+  ],
+  "author": "qiutian00",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
+    "gulp-file-include": "^2.1.0",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-run-sequence": "^0.3.2",
+    "gulp-sass": "^4.0.2",
+    "gulp-uglify": "^3.0.2",
+    "gulp-watch": "^5.0.1",
+    "gulp-webserver": "^0.9.1"
+  }
+}
