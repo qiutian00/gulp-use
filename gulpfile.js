@@ -67,7 +67,7 @@ Gulp.task("copy-sources", ["copy-css", "copy-js", "copy-html", "copy-images"]);
 Gulp.task("web-server", () => {
   Gulp.src(Dist).pipe(
     WebServer({
-      port: 8080,
+      port: 3131,
       host: "localhost",
       livereload: true,
       open: "http://localhost:3131/index.html"
@@ -81,7 +81,7 @@ Gulp.task("clean", () => {
 
 Gulp.task("start", () => {
   // RunSequence是用来设置任务串行执行，因为有些任务是有先后顺序依赖，[]内的并行执行，()内的串行执行
-  RunSequence("clean", ["copy-sources", "watch"], "web-server");
+  RunSequence("clean", "copy-sources", "watch", "web-server");
 });
 
 Gulp.task("default", ["start"]);
