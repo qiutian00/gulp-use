@@ -81,7 +81,7 @@ Gulp.task("clean", () => {
 
 Gulp.task("start", () => {
   // RunSequence是用来设置任务串行执行，因为有些任务是有先后顺序依赖，[]内的并行执行，()内的串行执行
-  RunSequence("clean", "copy-sources", "watch", "web-server");
+  RunSequence("clean", ["copy-sources", "watch"], "web-server");
 });
 
 Gulp.task("default", ["start"]);
