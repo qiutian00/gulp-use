@@ -22,6 +22,8 @@ const Babel = require("gulp-babel");
 
 const Dist = "dist/";
 
+// todo autoprefixer postcss : https://github.com/zhonglimh/Ublue-gulp-config/blob/master/gulpfile.js
+
 Gulp.task("copy-html", () => {
   return Gulp.src("src/view/*.html")
     .pipe(
