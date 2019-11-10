@@ -17,7 +17,8 @@ const Less = require("gulp-less");
 const LessAutoprefix = require("less-plugin-autoprefix");
 const autoprefix = new LessAutoprefix({ browsers: ["last 2 versions"] });
 
-// todo babel used
+// babel used
+const Babel = require("gulp-babel");
 
 const Dist = "dist/";
 
@@ -36,12 +37,11 @@ Gulp.task("copy-html", () => {
     .pipe(Gulp.dest(Dist));
 });
 
-Gulp.task("copy-js", done => {
-  return (
-    Gulp.src("src/js/**")
-      // .pipe(Uglify())
-      .pipe(Gulp.dest(Dist + "/js"))
-  );
+Gulp.task("copy-js", async () => {
+  return await Gulp.src("src/js/**")
+    .pipe(Babel())
+    .pipe(Uglify())
+    .pipe(Gulp.dest(Dist + "/js"));
 });
 
 // Gulp.task("Sass", () => {
