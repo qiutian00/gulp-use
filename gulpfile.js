@@ -7,7 +7,8 @@ const Imagemin = require("gulp-imagemin");
 const FileInclude = require("gulp-file-include");
 const Watch = require("gulp-watch");
 const WebServer = require("gulp-webserver");
-const RunSequence = require("gulp-run-sequence");
+// const RunSequence = require("gulp-run-sequence");
+const RunSequence = require("gulp4-run-sequence");
 const Clean = require("gulp-clean");
 
 // css compile plugin
@@ -19,7 +20,7 @@ const autoprefix = new LessAutoprefix({ browsers: ["last 2 versions"] });
 
 // todo babel used
 
-const Dist = "build/example";
+const Dist = "dist/";
 
 Gulp.task("copy-html", () => {
   return Gulp.src("src/view/*.html")
@@ -36,10 +37,12 @@ Gulp.task("copy-html", () => {
     .pipe(Gulp.dest(Dist));
 });
 
-Gulp.task("copy-js", () => {
-  Gulp.src("src/js/**")
-    .pipe(Uglify())
-    .pipe(Gulp.dest(Dist + "/js"));
+Gulp.task("copy-js", done => {
+  return (
+    Gulp.src("src/js/**")
+      // .pipe(Uglify())
+      .pipe(Gulp.dest(Dist + "/js"))
+  );
 });
 
 // Gulp.task("Sass", () => {
@@ -48,8 +51,8 @@ Gulp.task("copy-js", () => {
 //     .pipe(Gulp.dest(Dist + "/sass"));
 // });
 
-Gulp.task("Less", () => {
-  Gulp.src("./less/**/*.less")
+Gulp.task("Less", done => {
+  return Gulp.src("scr/less/**/*.less")
     .pipe(
       Less({
         plugins: [autoprefix]
@@ -58,30 +61,40 @@ Gulp.task("Less", () => {
     .pipe(Gulp.dest(Dist + "/css"));
 });
 
-Gulp.task("copy-css", () => {
-  Gulp.src("src/css/*.css")
+Gulp.task("copy-css", done => {
+  return Gulp.src("src/css/*.css")
     .pipe(Minifycss())
     .pipe(Gulp.dest(Dist + "/css"));
 });
 
-Gulp.task("copy-images", () => {
+Gulp.task("copy-images", done => {
   // Gulp.src("src/images/*").pipe(Gulp.dest());
-  Gulp.src("src/images/*")
+  return Gulp.src("src/images/*")
     .pipe(Imagemin())
     .pipe(Gulp.dest(Dist + "/images"));
 });
 
-Gulp.task("watch", () => {
-  Gulp.watch("src/view/*", ["copy-html"]);
-  Gulp.watch("src/js/**", ["copy-js"]);
-  Gulp.watch("src/css/*", ["copy-css"]);
-  Gulp.watch("src/images/*", ["copy-images"]);
+Gulp.task("watch", done => {
+  // Gulp.watch("src/view/*", ["copy-html"]);
+  // Gulp.watch("src/js/**", ["copy-js"]);
+  // Gulp.watch("src/css/*", ["copy-css"]);
+  // Gulp.watch("src/images/*", ["copy-images"]);
+  done();
 });
 
-Gulp.task("copy-sources", ["copy-css", "copy-js", "copy-html", "copy-images"]);
+Gulp.task(
+  "copy-sources",
+  Gulp.series("copy-css", "copy-js", "copy-html", "copy-images", done => {
+    console.log("the sources is finished");
+    done();
+  }),
+  done => {
+    done();
+  }
+);
 
-Gulp.task("web-server", () => {
-  Gulp.src(Dist).pipe(
+Gulp.task("web-server", done => {
+  return Gulp.src(Dist).pipe(
     WebServer({
       port: 3131,
       host: "localhost",
@@ -95,9 +108,12 @@ Gulp.task("clean", () => {
   return Gulp.src(Dist).pipe(Clean());
 });
 
-Gulp.task("start", () => {
+Gulp.task("start", done => {
   // RunSequence是用来设置任务串行执行，因为有些任务是有先后顺序依赖，[]内的并行执行，()内的串行执行
   RunSequence("clean", ["copy-sources", "watch"], "web-server");
+  done();
 });
 
-Gulp.task("default", ["start"]);
+Gulp.task("default", Gulp.series("start"), done => {
+  done();
+});

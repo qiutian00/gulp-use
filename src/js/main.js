@@ -1,9 +1,9 @@
 // 动态效果
+let left = document.querySelector(".left");
 
-const left = document.querySelector(".left");
-const right = document.querySelector(".right");
+let right = document.querySelector(".right");
 
-const container = document.querySelector(".container");
+let container = document.querySelector(".container");
 
 left.addEventListener("mouseenter", () => {
   container.classList.add("hover-left");
