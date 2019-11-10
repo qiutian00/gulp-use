@@ -17,6 +17,8 @@ const Less = require("gulp-less");
 const LessAutoprefix = require("less-plugin-autoprefix");
 const autoprefix = new LessAutoprefix({ browsers: ["last 2 versions"] });
 
+// todo babel used
+
 const Dist = "build/example";
 
 Gulp.task("copy-html", () => {
