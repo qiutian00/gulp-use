@@ -68,7 +68,7 @@ Gulp.task("copy-css", done => {
 });
 
 Gulp.task("copy-images", done => {
-  return Gulp.src("src/images/*")
+  return Gulp.src("src/images/**")
     .pipe(Imagemin())
     .pipe(Gulp.dest(Dist + "/images"));
 });

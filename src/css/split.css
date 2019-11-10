@@ -35,7 +35,7 @@ body {
 .split.left {
   left: 0;
   /* todo */
-  background: url("../images/design.jpg") center center no-repeat;
+  background: url("../images/split/design.jpg") center center no-repeat;
   background-size: cover;
 }
 
@@ -50,7 +50,7 @@ body {
 .split.right {
   right: 0;
   /* todo */
-  background: url("../images/code.jpg") center center no-repeat;
+  background: url("../images/split/code.jpg") center center no-repeat;
   background-size: cover;
 }
 
