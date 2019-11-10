@@ -7,7 +7,6 @@ const Imagemin = require("gulp-imagemin");
 const FileInclude = require("gulp-file-include");
 const Watch = require("gulp-watch");
 const WebServer = require("gulp-webserver");
-// const RunSequence = require("gulp-run-sequence");
 const RunSequence = require("gulp4-run-sequence");
 const Clean = require("gulp-clean");
 
@@ -51,13 +50,14 @@ Gulp.task("copy-js", done => {
 //     .pipe(Gulp.dest(Dist + "/sass"));
 // });
 
-Gulp.task("Less", done => {
-  return Gulp.src("scr/less/**/*.less")
+Gulp.task("compile-less", done => {
+  return Gulp.src("src/less/*.less")
     .pipe(
       Less({
         plugins: [autoprefix]
       })
     )
+    .pipe(Minifycss())
     .pipe(Gulp.dest(Dist + "/css"));
 });
 
@@ -68,26 +68,58 @@ Gulp.task("copy-css", done => {
 });
 
 Gulp.task("copy-images", done => {
-  // Gulp.src("src/images/*").pipe(Gulp.dest());
   return Gulp.src("src/images/*")
     .pipe(Imagemin())
     .pipe(Gulp.dest(Dist + "/images"));
 });
 
 Gulp.task("watch", done => {
-  // Gulp.watch("src/view/*", ["copy-html"]);
-  // Gulp.watch("src/js/**", ["copy-js"]);
-  // Gulp.watch("src/css/*", ["copy-css"]);
-  // Gulp.watch("src/images/*", ["copy-images"]);
+  Gulp.watch(
+    "src/view/*",
+    Gulp.series("copy-html", done => {
+      done();
+    })
+  );
+  Gulp.watch(
+    "src/js/**",
+    Gulp.series("copy-js", done => {
+      done();
+    })
+  );
+  Gulp.watch(
+    "src/css/*",
+    Gulp.series("copy-css", done => {
+      done();
+    })
+  );
+  Gulp.watch(
+    "src/less/*",
+    Gulp.series("compile-less", done => {
+      done();
+    })
+  );
+  Gulp.watch(
+    "src/images/*",
+    Gulp.series("copy-images", done => {
+      done();
+    })
+  );
   done();
 });
 
 Gulp.task(
   "copy-sources",
-  Gulp.series("copy-css", "copy-js", "copy-html", "copy-images", done => {
-    console.log("the sources is finished");
-    done();
-  }),
+  Gulp.series(
+    "copy-css",
+    "compile-less",
+    "copy-js",
+    "copy-html",
+    "copy-images",
+    done => {
+      console.log("copy sources is finished");
+      done();
+    }
+  ),
   done => {
     done();
   }
