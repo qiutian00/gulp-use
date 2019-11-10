@@ -11,7 +11,11 @@ const RunSequence = require("gulp-run-sequence");
 const Clean = require("gulp-clean");
 
 // css compile plugin
-const Sass = require("gulp-sass");
+// const Sass = require("gulp-sass");
+
+const Less = require("gulp-less");
+const LessAutoprefix = require("less-plugin-autoprefix");
+const autoprefix = new LessAutoprefix({ browsers: ["last 2 versions"] });
 
 const Dist = "build/example";
 
@@ -41,6 +45,16 @@ Gulp.task("copy-js", () => {
 //     .pipe(Sass().on("error", Sass.logError))
 //     .pipe(Gulp.dest(Dist + "/sass"));
 // });
+
+Gulp.task("Less", () => {
+  Gulp.src("./less/**/*.less")
+    .pipe(
+      Less({
+        plugins: [autoprefix]
+      })
+    )
+    .pipe(Gulp.dest(Dist + "/css"));
+});
 
 Gulp.task("copy-css", () => {
   Gulp.src("src/css/*.css")
