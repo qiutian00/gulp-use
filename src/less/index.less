@@ -1,18 +1,67 @@
-.container {
-  width: 300px;
-  height: 300px;
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
 
-  background-color: #ff44ff;
-  margin: 10px auto;
-
-  /* 后面三个起到垂直居中 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  color: #eee;
-
-  // 盒子（content-box）的大小是: 宽度加上padding, margin
+body {
   box-sizing: border-box;
-  padding: 10px;
+  margin: 0;
+  padding: 0;
+  background: #e4e4e4;
+}
+
+.container {
+  max-width: 750px;
+  height: 100%;
+  margin: auto;
+  border: #fff solid 3px;
+  background: #fff;
+
+  // 垂直居中
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+}
+
+.main-img img,
+.imgs img {
+  width: 100%;
+}
+
+.imgs {
+  display: grid;
+  /* grid-template-columns: 1fr 1fr 1fr 1fr; */
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 5px;
+
+  .home {
+    background-image: url(../images/index/home.jpg);
+  }
+
+  .todo1 {
+    background-image: url(../images/index/todo1.jpg);
+  }
+
+  .todo2 {
+    background-image: url(../images/index/todo2.jpg);
+  }
+
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in 1 forwards;
+}
+
+.split {
+  background-image: url(../images/index/img3.jpg);
 }

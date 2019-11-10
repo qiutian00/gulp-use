@@ -99,7 +99,7 @@ Gulp.task("watch", done => {
     })
   );
   Gulp.watch(
-    "src/images/*",
+    "src/images/**",
     Gulp.series("copy-images", done => {
       done();
     })
