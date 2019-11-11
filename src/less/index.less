@@ -12,8 +12,14 @@ body {
 }
 
 .container {
-  height: 100%;
-  margin: auto 10%;
+  margin: auto 4%;
+
+  margin-top: 50px;
+  //等价于
+  // position: relative; or absolute
+  // top: 50px;
+
+  padding: 2% 2% 3% 2%;
   border: #fff solid 3px;
   background: #fff;
 
@@ -28,6 +34,8 @@ body {
 .main-img img,
 .imgs img {
   width: 100%;
+  // 设置为block, 图片下部与div有一定的间距
+  display: block;
 }
 
 .imgs {
@@ -61,6 +69,58 @@ body {
   animation: fadeIn 0.5s ease-in 1 forwards;
 }
 
-.split {
-  background-image: url(../images/index/img3.jpg);
+.header {
+  background-color: cadetblue;
+  position: relative;
+  height: 50px;
+  display: flex;
+  align-items: center;
+
+  // 设置为固定滑动
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+
+  .title_container {
+    position: absolute;
+    left: 4%;
+    font-size: 22px;
+    line-height: 1.5;
+    color: #fff;
+  }
+
+  .info_container {
+    position: absolute;
+    right: 4%;
+    font-size: 22px;
+    line-height: 1.5;
+    color: #fff;
+
+    a {
+      margin-left: 10px;
+      text-decoration: none;
+      color: #fff;
+    }
+  }
+}
+
+.footer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 5px;
+  background-color: #eee;
+  color: #fff;
+  line-height: 1.5;
+
+  .item {
+    height: 40px;
+    border-radius: 3px;
+    background-color: rgb(131, 185, 187);
+    padding: 0 2px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
